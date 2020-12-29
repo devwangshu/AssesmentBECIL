@@ -4,7 +4,7 @@
 	Step 1: Open Ubuntu Terminal (ctrl+alt+T)
 
 
----------------------------Ubuntu commands Virtual env setup-----------------
+### ---------------------------Ubuntu commands Virtual env setup-----------------
 
 	Step 2: python3  -V ##check the python version
 
@@ -26,7 +26,7 @@
 
 	Setp 10: pip freeze >requirements.txt ## export all installed library list in this text file
 
------------------Run Django Project on virtual env on Ubuntu-------------------------------
+### -----------------Run Django Project on virtual env on Ubuntu-------------------------------
 
 	source myproject_env/bin/activate
 
