@@ -21,9 +21,7 @@ img.check{
 height: 40px ;
 }
 .draggable>img:hover{
-  border-radius: 15px;
-  border-style: solid;
-  border-color: blue;
+  border-radius: 5px;
 }
     </style>
 <link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
@@ -45,111 +43,62 @@ height: 40px ;
       <br>
       <br>
       <div class="header clearfix">
-        <h3 class="text-muted">Darg the Animal with their food</h3>
+        <h3 class="text-muted">Drag the Animal with their food(Dynamic )</h3>
         
     </div>
   <div class="col-md-12">
 
+ <!-- DRAGGABLE DIVS -->
+    <div class="row">
+      <h3 class="text-centre">DRAGGABLE AREA</h3><hr>
+    <div class="row image-grid">
+    {% for book in object_list %}
 
 
-          <!-- DRAGGABLE DIVS -->
-          <div class="row">
-            <h3 class="text-centre">DRAGGABLE AREA</h3><hr>
-          <div class="row image-grid">
-
-            <div class="col-sm-3 col-md-3">
-              <div class="panel panel-default">
-                <div class="panel-body draggable" id="1" data-ques="horse.jpg">
-                  
-                    <img alt="" class="img-responsive center-block img"  src="/media/image/horse.jpg" id="1" height="100" width="150">
-                  
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-3 col-md-3">
-              <div class="panel panel-default">
-                <div class="panel-body draggable" id="2" data-ques="lion.png">
-                  
-                    <img alt="" class="img-responsive center-block img" src="/media/image/lion.png" id="2" height="100" width="150">
-                 
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-3 col-md-3">
-              <div class="panel panel-default">
-                <div class="panel-body draggable" id="3" data-ques="parrot.jpg">
-                  
-                    <img alt="" class="img-responsive center-block img" src="/media/image/parrot.jpg" id="3" height="100" width="150">
-                  
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-3 col-md-3">
-              <div class="panel panel-default">
-                <div class="panel-body draggable" id="4" data-ques="monkey.jpeg">
-                  
-                    <img alt="" class="img-responsive center-block img" src="/media/image/monkey.jpeg" id="4" height="100" width="150">
-                  
-                </div>
-              </div>
-            </div>
-
-          </div>
+    <div class="col-sm-3 col-md-3">
+      <div class="panel panel-default">
+        <div class="panel-body draggable" id="{{ book.id }}" data-ques="{{ book.name }}">
+          
+            <img alt="" class="img-responsive center-block img"  src="/media/{{ book.name }}" id="{{ book.id }}" height="100" width="150">
+          
         </div>
+      </div>
+    </div>
 
+
+
+
+
+    {% endfor %}
+
+  </div>
+</div>
+
+         
+          
 
 
           <!-- DROPPABLE DIVS -->
           <div class="row">
             <h3 class="text-centre">DROPPABLE AREA</h3><hr>
           <div class="row image-grid">
-
+            {% for book in object_list %}
             <div class="col-sm-3 col-md-3">
               <div class="panel panel-default">
-                <div class="panel-body droppable" id="1" data-ques="grass.jpeg" data-ans="horse.jpg" data-givenans="">
+                <div class="panel-body droppable" id="{{book.id}}" data-ques="{{ book.food }}" data-ans="{{ book.name }}" data-givenans="">
                   
-                    <img alt="" class="img-responsive center-block" src="/media/image/grass.jpeg" height="100" width="150">
+                    <img alt="" class="img-responsive center-block" src="/media/{{ book.food }}" height="100" width="150">
                   
                 </div>
               </div>
             </div>
 
-            <div class="col-sm-3 col-md-3">
-              <div class="panel panel-default">
-                <div class="panel-body droppable" id="2" data-ques="nuts.jpg" data-ans="parrot.jpg" data-givenans="">
-                  
-                    <img alt="" class="img-responsive center-block" src="/media/image/nuts.jpg" height="100" width="150">
-                 
-                </div>
-              </div>
-            </div>
-
-            <div class="col-sm-3 col-md-3">
-              <div class="panel panel-default">
-                <div class="panel-body droppable" id="3" data-ques="meat.jpg" data-ans="lion.png" data-givenans="">
-                  
-                    <img alt="" class="img-responsive center-block" src="/media/image/meat.jpg" height="100" width="150">
-                  
-                </div>
-              </div>
-            </div>
-            <div class="col-sm-3 col-md-3">
-              <div class="panel panel-default">
-                <div class="panel-body droppable" id="4" data-ques="banana.jpg" data-ans="monkey.jpeg" data-givenans="">
-                  
-                    <img alt="" class="img-responsive center-block" src="/media/image/banana.jpg" height="100" width="150">
-                  
-                </div>
-              </div>
-            </div>
+            {% endfor %}
 
             <div class="row ">
               <div class="col-md-12">
                   <button class="btn btn-primary"  id="result">Check Result</button>
                   <a class="btn btn-primary" href="{% url 'FileCompare:home' %}">Home</a>
-                  <a class="btn btn-primary" href="{% url 'FileCompare:image_match_dynamic' %}">Dynamic File Compare</a>
               </div>
             </div>
 
@@ -216,8 +165,8 @@ $(function () {
           console.log(id);
           $('.draggable#'+id).draggable( "disable" );
 
-          $(this).children("img.center-block").width("120px");
-          $(this).children("img.center-block").height("80px");
+          $(this).children("img.center-block").width("150px");
+          $(this).children("img.center-block").height("100px");
           
         }
     }

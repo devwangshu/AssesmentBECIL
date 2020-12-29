@@ -12,5 +12,6 @@ urlpatterns = [
     path('manage_photo', views.manage_photo, name='manage_photo'),
     path('', views.home, name='home'),
     path('image_match_static', views.image_match_static, name='image_match_static'),
+    path('image_match_dynamic', views.image_match_dynamic, name='image_match_dynamic'),
 
 ]

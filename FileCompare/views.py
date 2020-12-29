@@ -46,5 +46,10 @@ def home(request, template_name='home.html'):
 def image_match_static(request, template_name='image_match_static.html'):
     return render(request, template_name)
 
+def image_match_dynamic(request, template_name='image_match_dynamic.html'):
+    std_data = AnimalFood.objects.all() 
+    data = {}
+    data['object_list'] = std_data
+    return render(request, template_name, data)
 
 
