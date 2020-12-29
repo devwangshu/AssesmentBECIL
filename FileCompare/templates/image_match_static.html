@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+    {% load static %}
+    <style>
+  .ui-draggable-disabled>img{
+    opacity: 0.5;
+  }
+
+
+.draggable>img,.droppable>img{
+
+width: 150px ;
+height: 100px ;
+
+}
+
+img.check{
+  width: 40px ;
+height: 40px ;
+}
+.draggable>img:hover{
+  border-radius: 5px;
+}
+    </style>
+<link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'font-awesome.css' %}"> 
+
+<script src="{% static 'jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'bootstrap.min.js' %}"></script>
+
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+  <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+  <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+</head>
+<body>
+
+  <div class="container">
+    <div class="row">
+      <br>
+      <br>
+      <br>
+      <div class="header clearfix">
+        <h3 class="text-muted">Darg the Animal with their food</h3>
+        
+    </div>
+  <div class="col-md-12">
+
+
+
+          <!-- DRAGGABLE DIVS -->
+          <div class="row">
+            <h3 class="text-centre">DRAGGABLE AREA</h3><hr>
+          <div class="row image-grid">
+
+            <div class="col-sm-3 col-md-3">
+              <div class="panel panel-default">
+                <div class="panel-body draggable" id="1" data-ques="horse.jpg">
+                  
+                    <img alt="" class="img-responsive center-block img"  src="/media/image/horse.jpg" id="1" height="100" width="150">
+                  
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-3 col-md-3">
+              <div class="panel panel-default">
+                <div class="panel-body draggable" id="2" data-ques="lion.png">
+                  
+                    <img alt="" class="img-responsive center-block img" src="/media/image/lion.png" id="2" height="100" width="150">
+                 
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-3 col-md-3">
+              <div class="panel panel-default">
+                <div class="panel-body draggable" id="3" data-ques="parrot.jpg">
+                  
+                    <img alt="" class="img-responsive center-block img" src="/media/image/parrot.jpg" id="3" height="100" width="150">
+                  
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-3 col-md-3">
+              <div class="panel panel-default">
+                <div class="panel-body draggable" id="4" data-ques="monkey.jpeg">
+                  
+                    <img alt="" class="img-responsive center-block img" src="/media/image/monkey.jpeg" id="4" height="100" width="150">
+                  
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+
+          <!-- DROPPABLE DIVS -->
+          <div class="row">
+            <h3 class="text-centre">DROPPABLE AREA</h3><hr>
+          <div class="row image-grid">
+
+            <div class="col-sm-3 col-md-3">
+              <div class="panel panel-default">
+                <div class="panel-body droppable" id="1" data-ques="grass.jpeg" data-ans="horse.jpg" data-givenans="">
+                  
+                    <img alt="" class="img-responsive center-block" src="/media/image/grass.jpeg" height="100" width="150">
+                  
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-3 col-md-3">
+              <div class="panel panel-default">
+                <div class="panel-body droppable" id="2" data-ques="nuts.jpg" data-ans="parrot.jpg" data-givenans="">
+                  
+                    <img alt="" class="img-responsive center-block" src="/media/image/nuts.jpg" height="100" width="150">
+                 
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-3 col-md-3">
+              <div class="panel panel-default">
+                <div class="panel-body droppable" id="3" data-ques="meat.jpg" data-ans="lion.png" data-givenans="">
+                  
+                    <img alt="" class="img-responsive center-block" src="/media/image/meat.jpg" height="100" width="150">
+                  
+                </div>
+              </div>
+            </div>
+            <div class="col-sm-3 col-md-3">
+              <div class="panel panel-default">
+                <div class="panel-body droppable" id="4" data-ques="banana.jpg" data-ans="monkey.jpeg" data-givenans="">
+                  
+                    <img alt="" class="img-responsive center-block" src="/media/image/banana.jpg" height="100" width="150">
+                  
+                </div>
+              </div>
+            </div>
+
+            <div class="row ">
+              <div class="col-md-12">
+                  <button class="btn btn-primary"  id="result">Check Result</button>
+                  <a class="btn btn-primary" href="{% url 'FileCompare:home' %}">Home</a>
+              </div>
+            </div>
+
+            <br/>
+            <br/>
+
+          </div>
+          <div class="text-centre" id="score" style="display: none;"> 
+            <div class="header clearfix">
+              <h3 class="text-muted" id="sc">Your Score</h3>
+            </div>
+            <div class="progress" >
+              <div class="progress-bar progress-bar-success" id="my_progress" role="progressbar" aria-valuenow="50"
+              aria-valuemin="0" aria-valuemax="100" style="width:10%">
+                
+              </div>
+            </div>
+          </div>
+          </div>
+
+
+
+
+
+
+
+
+</div>
+</div>
+</div>
+<script>
+var Y;
+$(function () {
+  $('.draggable').draggable({
+    revert: "invalid",
+    stack: ".draggable",
+    helper:'clone',
+    drag: function() 
+    { 
+      // dd= $(this).data("ans"); 
+      // alert(dd);
+    }
+  }).resizable();
+
+
+  $('.droppable').droppable({
+    // accept: ".draggable",
+    drop: function(event, ui) {
+        //console.log(ui)
+        //$(this).append(ui.draggable.clone().removeClass().removeAttr('style'));
+        console.log(ui.draggable);
+        //validation
+        Y=$(this);
+        let length=Y.children('img.center-block.img').length;
+        console.log('length',length)
+        if(length<1){
+          $(this).append(ui.draggable.context.innerHTML);
+
+          let selected_ans=ui.draggable[0].dataset['ques'];
+          // alert(selected_ans);
+          // $(this).data('givenans',selected_ans);
+          $(this).attr("data-givenans", selected_ans);
+          let id=ui.draggable.context.id;
+          console.log(id);
+          $('.draggable#'+id).draggable( "disable" );
+
+          $(this).children("img.center-block").width("150px");
+          $(this).children("img.center-block").height("100px");
+          
+        }
+    }
+    });
+
+    $("#result").click(function(){
+
+      total_ques=0;
+      crt_ans=0;
+      score_percent=0;
+      $(".droppable").each(function() {
+          given_ans=$(this).data("givenans");
+          correct_ans=$(this).data("ans");
+          // alert("Given ans:"+given_ans+" :Correct ans:"+correct_ans);
+
+          total_ques++;
+
+          if(given_ans==correct_ans)
+          {
+            crt_ans+=1;
+            $(this).append("<img src='/media/image/correct.png' class='check' width='50' height='50'>");
+          }
+          else{
+            $(this).append("<img src='/media/image/incorrect.jpg' class='check' width='50' height='50'>");
+          }
+          score_percent=(crt_ans*100)/total_ques;
+      });
+      // alert("Your total correct match:"+crt_ans+" out of "+total_ques+",you got"+score_percent +" % score");
+    
+      $("#result").html("Your total correct match:"+crt_ans+" out of "+total_ques);
+      $("#my_progress").css("width", score_percent+"%");
+      $(".progress").append("You got "+score_percent+"%");
+      $("#sc").append(score_percent+"%")
+      $("#score").show();
+    });
+
+    $(".droppable").click(function() {
+     
+        let id=$(this).children("img.center-block.img")[0].id;
+       $('.draggable#'+id).draggable( "enable" );
+       $('.droppable#'+$(this).context.id+'>img.center-block.img').remove();
+     
+    });
+  
+});
+
+</script>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+{% load static %}
+<link rel="stylesheet" href="{% static 'bootstrap.min.css' %}">
+<link rel="stylesheet" href="{% static 'font-awesome.css' %}"> 
+
+<script src="{% static 'jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'bootstrap.min.js' %}"></script>
+
+</head>
+<body>
+<div class="container">
+    <div class="row">
+<section class="col-md-12">
+    <h1 class="page-header">Home</h1>
+    <img src="/media/image/besil.png" class="img img-responsive"><br><br>
+    <h3>Developed By: <b>Dewangshu Pandit</b>, <br>Pre-Assessment for the post of Software Developer-MIC to be submitted by 30th December 2020</h3><hr>
+    <h3>Question Choice a.Create HTML5, jquery (use any js library) and create Interactive video. ex : <a href="https://h5p.org/image-pairing">https://h5p.org/image-pairing</a></h3>
+    <div class="row text-center">
+        <div class="col-md-12">
+            <a class="btn btn-primary " href="{% url 'FileCompare:image_match_static' %}">Match Images (Static) </a>
+            <a class="btn btn-primary " href="{% url 'FileCompare:add_photo' %}">Match Images (Dyanamic)</a>
+        </div>
+       
+    </div>
+    <hr>
+    <!-- Table content -->
+    <div class="row">
+        
+    
+
+
+    </div><!--end Table content -->
+</section>
+        </div>
+</div>
+
+
+
+
+</body>
+</html>
+
+
+
+<script>
+        
+</script>
+
+
